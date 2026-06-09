@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* ---------- Tokens del escenario (tema oscuro de cine, divergente del dashboard) ---------- */
+@theme {
+  --color-stage: #07090d;        /* fondo del teatro (casi negro azulado) */
+  --color-stage-soft: #0d1117;   /* paneles sobre el escenario */
+  --color-ivory: #f2efe7;        /* texto principal (marfil) */
+  --color-ivory-dim: #b8b4a8;    /* texto secundario */
+  --color-faint: #6b6a62;        /* metadatos */
+  --color-hairline: #232a33;     /* líneas finas */
+
+  --color-spark: #2dd4c5;        /* acento turquesa (luz del proyecto) */
+  --color-spark-deep: #0d8f84;
+  --color-ember: #e8a33d;        /* alerta cálida */
+  --color-blood: #e85d4b;        /* riesgo */
+  --color-leaf: #46c08b;         /* señal positiva */
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-stage);
+}
+
+body {
+  background: var(--color-stage);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--color-spark); color: #06211e; }
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+}
+
+/* ---------- Lenis ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Grano de cine sutil (textura sobre todo el escenario) ---------- */
+.stage-grain::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 80;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ---------- Tipografía de actos ---------- */
+.act-kicker {
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--color-spark); font-weight: 600;
+}
+.act-title {
+  font-family: var(--font-display);
+  font-weight: 600; line-height: 1.02; letter-spacing: -0.02em;
+  font-size: clamp(2.4rem, 7vw, 6.5rem);
+}
+.act-giant {
+  font-family: var(--font-display);
+  font-weight: 700; line-height: 0.95; letter-spacing: -0.03em;
+  font-size: clamp(4.5rem, 16vw, 15rem);
+}
+
+/* tachado animado de la frase de apertura */
+.strike-line {
+  position: absolute; left: -2%; right: 102%; top: 54%; height: 0.07em;
+  background: var(--color-blood); transform: rotate(-1.2deg);
+}
+
+/* ---------- Utilidades ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.hairline-t { border-top: 1px solid var(--color-hairline); }
+
+/* ---------- Reduced motion: todo visible, sin coreografía ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
