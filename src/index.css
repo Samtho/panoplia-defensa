@@ -89,3 +89,7 @@ html.lenis, html.lenis body { height: auto; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* relevo de presentador (chip que entra) */
+@keyframes juryPop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.jury-pop { animation: juryPop 0.5s ease-out; }
